@@ -2,13 +2,13 @@ pipeline {
     agent any
     
     environment {
-        DOCKER_HUB_REPO = 'your-dockerhub-username/my-app' // Replace with your Docker Hub repository
+        DOCKER_HUB_REPO = 'smilekisan/fortray-lab' // Replace with your Docker Hub repository
     }
     
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/smilekison/FortrayGlobal.git' // Replace with your GitHub repository URL
+                git branch: 'main', url: 'https://github.com/smilekison/FortrayGlobal.git'
             }
         }
         
