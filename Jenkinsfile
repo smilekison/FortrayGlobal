@@ -41,17 +41,17 @@ pipeline {
             }
         }
         
-        // stage('Deploy') {
-        //     steps {
-        //         script {
-        //             // Stop and remove any existing container named 'myapp'
-        //             sh 'docker stop myapp || true'
-        //             sh 'docker rm myapp || true'
-        //             // Run the new container from the Docker image
-        //             sh 'docker run -d -p 3000:3000 --name myapp yourusername/myapp:${BUILD_NUMBER}'
-        //         }
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+                script {
+                    // Stop and remove any existing container named 'myapp'
+                    sh 'docker stop myapp || true'
+                    sh 'docker rm myapp || true'
+                    // Run the new container from the Docker image
+                    sh 'docker run -d -p 3000:3000 --name demo-app :${DOCKER_HUB_REPO${BUILD_NUMBER}'
+                }
+            }
+        }
     }
     
     // post {
