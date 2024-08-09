@@ -3,13 +3,15 @@ pipeline {
     
     environment {
         DOCKER_HUB_REPO = 'smilekisan/fortray-lab' // Replace with your Docker Hub repository
+        echo "Dockerhub repo: "${DOCKER_HUB_REPO}
     }
     
     stages {
         stage('Checkout') {
             steps {
-                url: 'https://github.com/smilekison/FortrayGlobal.git'
-                sh 'echo "Current Git Branch: '${url}
+                echo "Hello world"
+                // url: 'https://github.com/smilekison/FortrayGlobal.git'
+                // sh 'echo "Current Git Branch: '${url}
             }
         }
         
