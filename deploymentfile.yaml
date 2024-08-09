@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: redis
-        image: your-dockerhub-username/redis-image:latest
+        image: smilekisan/fortray-lesson-2-dca:latest
         ports:
         - containerPort: 6379
