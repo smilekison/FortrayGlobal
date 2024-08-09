@@ -8,7 +8,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/smilekison/FortrayGlobal.git'
+                git_branch: 'master', url: 'https://github.com/smilekison/FortrayGlobal.git'
+                sh 'echo "Current Git Branch: '${git_branch}
             }
         }
         
@@ -16,23 +17,25 @@ pipeline {
             steps {
                 script {
                     dockerImage = docker.build("${DOCKER_HUB_REPO}:${env.BUILD_NUMBER}")
+                    echo "Docker Image: ${dockerImage}"
+                    echo "Docker Hub Repo: ${DOCKER_HUB_REPO}"
                 }
             }
         }
         
-        stage('Push to Docker Hub') {
-            steps {
-                script {
-                    // Use the credentials stored in Jenkins
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub_credentials1', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
-                        docker.withRegistry('', "${DOCKER_HUB_USERNAME}:${DOCKER_HUB_PASSWORD}") {
-                            dockerImage.push()
-                            dockerImage.push('latest')
-                        }
-                    }
-                }
-            }
-        }
+        // stage('Push to Docker Hub') {
+        //     steps {
+        //         script {
+        //             // Use the credentials stored in Jenkins
+        //             withCredentials([usernamePassword(credentialsId: 'dockerhub_credentials1', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
+        //                 docker.withRegistry('', "${DOCKER_HUB_USERNAME}:${DOCKER_HUB_PASSWORD}") {
+        //                     dockerImage.push()
+        //                     dockerImage.push('latest')
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         
         // stage('Deploy') {
         //     steps {
