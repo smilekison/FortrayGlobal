@@ -48,7 +48,7 @@ pipeline {
                     sh 'docker stop myapp || true'
                     sh 'docker rm myapp || true'
                     // Run the new container from the Docker image
-                    sh 'docker run -d -p 3000:3000 --name myapp :${DOCKER_HUB_REPO${BUILD_NUMBER}'
+                    sh 'docker run -d -p 3000:3000 --name myapp ${DOCKER_HUB_REPO}:${BUILD_NUMBER}'
                 }
             }
         }
