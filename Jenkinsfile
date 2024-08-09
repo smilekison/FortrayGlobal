@@ -8,8 +8,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git_branch: 'master', url: 'https://github.com/smilekison/FortrayGlobal.git'
-                sh 'echo "Current Git Branch: '${git_branch}
+                url: 'https://github.com/smilekison/FortrayGlobal.git'
+                sh 'echo "Current Git Branch: '${url}
             }
         }
         
