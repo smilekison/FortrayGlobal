@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub_credentials1') // Replace 'dockerhub' with the ID of your Docker Hub credentials in Jenkins
+        DOCKER_HUB_REPO  = 'smilekisan/fortray-lab' // Replace 'dockerhub' with the ID of your Docker Hub credentials in Jenkins
     }
     
     stages {
@@ -17,29 +17,29 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image with the build number as the tag
-                    sh 'docker build -t smilekisan/fortray-lab:${BUILD_NUMBER} .'
+                    sh 'docker build -t ${DOCKER_HUB_REPO}:${BUILD_NUMBER} .'
                     echo "Image Built"
                 }
             }
         }
         
-        // stage('Login') {
-        //     steps {
-        //         script {
-        //             // Log in to Docker Hub using the credentials from Jenkins
-        //             sh 'echo $DOCKERHUB_CREDENTIALS_PASSWORD | docker login -u $DOCKERHUB_CREDENTIALS_USERNAME --password-stdin'
-        //         }
-        //     }
-        // }
+        stage('Login') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_credentials1', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                    sh 'echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin'
+                    echo "Logged IN"
+                }
+            }
+        }
         
-        // stage('Push') {
-        //     steps {
-        //         script {
-        //             // Push the Docker image to Docker Hub
-        //             sh 'docker push yourusername/myapp:${BUILD_NUMBER}'
-        //         }
-        //     }
-        // }
+        stage('Push') {
+            steps {
+                script {
+                    // Push the Docker image to Docker Hub
+                    sh 'docker push ${DOCKER_HUB_REPO}:${BUILD_NUMBER}'
+                }
+            }
+        }
         
         // stage('Deploy') {
         //     steps {
