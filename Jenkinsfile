@@ -11,7 +11,7 @@ pipeline {
             steps {
                 echo "Hello world"
                 url: 'https://github.com/smilekison/FortrayGlobal.git'
-                echo "Current Git Branch: "${url}
+                sh 'echo "Current Git Branch: $(git rev-parse --abbrev-ref HEAD)"'
             }
         }
     }
