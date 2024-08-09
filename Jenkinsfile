@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         DOCKER_HUB_REPO = 'smilekisan/fortray-lab' // Replace with your Docker Hub repository
-        echo "Dockerhub repo: "${DOCKER_HUB_REPO}
+        // echo "Dockerhub repo: "${DOCKER_HUB_REPO}
     }
     
     stages {
