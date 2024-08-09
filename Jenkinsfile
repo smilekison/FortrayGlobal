@@ -10,8 +10,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo "Hello world"
-                // url: 'https://github.com/smilekison/FortrayGlobal.git'
-                // sh 'echo "Current Git Branch: '${url}
+                url: 'https://github.com/smilekison/FortrayGlobal.git'
+                echo "Current Git Branch: '${url}
             }
         }
         
