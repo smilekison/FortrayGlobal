@@ -13,15 +13,15 @@ pipeline {
             }
         }
         
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    dockerImage = docker.build("${DOCKER_HUB_REPO}:${env.BUILD_NUMBER}")
-                    echo "Docker Image: ${dockerImage}"
-                    echo "Docker Hub Repo: ${DOCKER_HUB_REPO}"
-                }
-            }
-        }
+        // stage('Build Docker Image') {
+        //     steps {
+        //         script {
+        //             dockerImage = docker.build("${DOCKER_HUB_REPO}:${env.BUILD_NUMBER}")
+        //             echo "Docker Image: ${dockerImage}"
+        //             echo "Docker Hub Repo: ${DOCKER_HUB_REPO}"
+        //         }
+        //     }
+        // }
         
         // stage('Push to Docker Hub') {
         //     steps {
