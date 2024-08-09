@@ -2,38 +2,64 @@ pipeline {
     agent any
     
     environment {
-        DOCKER_HUB_REPO = 'smilekisan/fortray-lab' // Replace with your Docker Hub repository
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub_credentials1') // Replace 'dockerhub' with the ID of your Docker Hub credentials in Jenkins
     }
     
     stages {
         stage('Checkout') {
             steps {
-                // Print a simple message to verify the pipeline is running
-                echo "Hello world"
-                
-                // Checkout from GitHub repository
-                checkout([$class: 'GitSCM', 
-                    branches: [[name: 'main']], 
-                    userRemoteConfigs: [[url: 'https://github.com/smilekison/FortrayGlobal.git']]
-                ])
-                
-                // Print the current Git branch
-                sh 'echo "Current Git Branch: $(git rev-parse --abbrev-ref HEAD)"'
-                
-                // Print the Docker Hub repository
-                echo "Docker Hub Repo: ${DOCKER_HUB_REPO}"
+                checkout scm
+                echo "Hello world from checkout"
             }
         }
-
-        stage('Build Docker Image') {
+        
+        stage('Build') {
             steps {
                 script {
-                    echo 'Building docker-image'
-                    dockerImage = docker.build("${DOCKER_HUB_REPO}:${env.BUILD_NUMBER}")
-                    echo "DockerImage is here:: ${dockerImage}"
-
+                    // Build the Docker image with the build number as the tag
+                    sh 'docker build -t smilekisan/fortray-lab:${BUILD_NUMBER} .'
+                    echo "Image Built"
                 }
             }
         }
+        
+        // stage('Login') {
+        //     steps {
+        //         script {
+        //             // Log in to Docker Hub using the credentials from Jenkins
+        //             sh 'echo $DOCKERHUB_CREDENTIALS_PASSWORD | docker login -u $DOCKERHUB_CREDENTIALS_USERNAME --password-stdin'
+        //         }
+        //     }
+        // }
+        
+        // stage('Push') {
+        //     steps {
+        //         script {
+        //             // Push the Docker image to Docker Hub
+        //             sh 'docker push yourusername/myapp:${BUILD_NUMBER}'
+        //         }
+        //     }
+        // }
+        
+        // stage('Deploy') {
+        //     steps {
+        //         script {
+        //             // Stop and remove any existing container named 'myapp'
+        //             sh 'docker stop myapp || true'
+        //             sh 'docker rm myapp || true'
+        //             // Run the new container from the Docker image
+        //             sh 'docker run -d -p 3000:3000 --name myapp yourusername/myapp:${BUILD_NUMBER}'
+        //         }
+        //     }
+        // }
     }
+    
+    // post {
+    //     always {
+    //         script {
+    //             // Log out from Docker Hub
+    //             sh 'docker logout'
+    //         }
+    //     }
+    // }
 }
