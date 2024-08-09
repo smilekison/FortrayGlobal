@@ -28,7 +28,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'Building docker-image"'
+                    sh 'Building docker-image'
                     dockerImage = docker.build("${DOCKER_HUB_REPO}:${env.BUILD_NUMBER}")
                     echo "DockerImage is here:: ${dockerImage}"
 
