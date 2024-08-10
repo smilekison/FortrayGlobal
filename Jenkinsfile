@@ -14,23 +14,17 @@ pipeline {
             }
             steps {
                 echo "Compiling"
-                sh 'mvn package'
+                sh 'mvn -B -DskipTests clean package'
                 echo "Finished compiling"
             }
         }
 
-
-        // stage('Test') {
-        //     steps {
-        //         echo "Test stage"
-        //         sh 'mvn test'
-        //     }
-        //     post {
-        //         always {
-        //             junit 'target/surefire-reports/*.xml'
-        //         }
-        //     }
-        // }
+        stage('Test') {
+            steps {
+                echo "Test stage"
+                sh 'mvn test'
+            }
+        }
     }
 }
 
