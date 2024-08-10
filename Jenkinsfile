@@ -14,7 +14,7 @@ pipeline {
             }
             steps {
                 echo "Compiling"
-                bat 'mvn package'
+                sh 'mvn package'
                 echo "Finished compiling"
             }
         }
