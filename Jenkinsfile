@@ -14,20 +14,21 @@ pipeline {
             }
             steps {
                 echo "Compiling"
-                sh 'mvn -B -DskipTests clean package'
+                // sh 'mvn -B -DskipTests clean package'
+                sh 'mvn package'
                 echo "Finished compiling"
             }
         }
 
-        // stage('Test') {
-        //     agent {
-        //         label 'test'
-        //     }
-        //     steps {
-        //         echo "Test stage"
-        //         sh 'mvn test'
-        //     }
-        // }
+        stage('Test') {
+            agent {
+                label 'test'
+            }
+            steps {
+                echo "Test stage"
+                sh 'mvn test'
+            }
+        }
     }
 }
 
