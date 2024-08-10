@@ -20,6 +20,9 @@ pipeline {
         }
 
         stage('Test') {
+            agent {
+                label 'test'
+            }
             steps {
                 echo "Test stage"
                 sh 'mvn test'
