@@ -13,17 +13,14 @@ pipeline {
             }
         }
 
-
         stage('Compile') {
-            agent {
-                label 'compile'
-            }
             steps {
                 echo "Compiling"
                 sh 'mvn -B -DskipTests clean package'
                 echo "Finished compiling"
             }
         }
+
 
         // stage('Test') {
         //     steps {
