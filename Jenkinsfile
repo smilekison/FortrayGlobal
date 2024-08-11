@@ -30,5 +30,15 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            echo "Archiving artifact"
+            archiveArtifacts artifacts: 'target/*.war', allowEmptyArchive: false
+        }
+        failure {
+            echo "Build failed, no artifacts to archive."
+        }
+    }
 }
 
