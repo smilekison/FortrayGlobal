@@ -1,0 +1,73 @@
+2 b
+kubectl create serviceaccount dashboard-admin-sa
+kubectl create clusterrolebinding dashboard-admin-sa --clusterrole=cluster-admin --serviceaccount=default:dashboard-admin-sa
+
+
+2 c
+kubectl create token dashboard-admin-sa -n kubernetes-dashboard
+
+
+
+
+ kubectl -n kubernetes-dashboard port-forward --address 0.0.0.0 svc/kubernetes-dashboard 8443:443
+
+
+
+eyJhbGciOiJSUzI1NiIsImtpZCI6Im9yclFOX3d2S0c0b0lmVnE3UTJoTFhJLWpCeFhMRElySEM3UUxVbHpjVEkifQ.eyJhdWQiOlsiaHR0cHM6Ly9rdWJlcm5ldGVzLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWwiXSwiZXhwIjoxNzIzNTMyMDA1LCJpYXQiOjE3MjM1Mjg0MDUsImlzcyI6Imh0dHBzOi8va3ViZXJuZXRlcy5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsIiwia3ViZXJuZXRlcy5pbyI6eyJuYW1lc3BhY2UiOiJrdWJlcm5ldGVzLWRhc2hib2FyZCIsInNlcnZpY2VhY2NvdW50Ijp7Im5hbWUiOiJkYXNoYm9hcmQtYWRtaW4tc2EiLCJ1aWQiOiJjZjI3ZTUxZC02MDRhLTRiN2QtOWQzNC1kZWE2ZDQ3NjM2MjcifX0sIm5iZiI6MTcyMzUyODQwNSwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmVybmV0ZXMtZGFzaGJvYXJkOmRhc2hib2FyZC1hZG1pbi1zYSJ9.EaqOTrAZXiAIIrat_GX8xck90bRjejPTyvyy2XB8u0xm_h5hc4R_OAIPja6aP-PHSv9L2i7cCg1Yy_ZA81J1hkzxF-NUK2OnIeCt7DRtMauKROhBAXQDdy3MV3TKtssK3PTtsubeKceNroEhme3EplR4nRYYomFRcZhg23Q64fwFh7OhyHzyt65_j5dY0nL_lYryrX0OlDhGWaPU8d7ls6ML2tuQ1cenvrbeRF8kLeMb__A8rzCcLzQzJ359G7UyPZoVHQzL07GacDerUZRvN0-HCJgYK816YsPbVOj6fWdym-HOMdV5KUKvAjiX6zifLuMvrtW_b3ejK_ZkHWaT2Q
+
+3
+kubectl create namespace myapp
+
+
+step 5
+kubectl create secret generic mysql-secret --from-literal=mysql-root-password=your_password -n myapp
+
+
+
+7 b
+kubectl create serviceaccount app-user -n myapp
+
+
+
+10
+kubectl get deployments -n myapp
+kubectl get services -n myapp
+kubectl get service php-app -n myapp
+
+
+
+
+kubectl apply -f mysql-pv.yaml
+kubectl apply -f mysql-pvc.yaml
+kubectl apply -f mysql-deployment.yaml
+kubectl apply -f mysql-service.yaml
+kubectl apply -f php-deployment.yaml
+kubectl apply -f php-service.yaml
+kubectl apply -f app-reader-role.yaml
+kubectl apply -f app-reader-binding.yaml
+kubectl apply -f resource-quota.yaml
+kubectl apply -f network-policy.yaml
+kubectl apply -f limit-range.yaml
+kubectl apply -f mysql-backup-cronjob.yaml
+
+
+
+
+
+
+kubectl delete -f mysql-pv.yaml
+kubectl delete -f mysql-pvc.yaml
+kubectl delete -f mysql-deployment.yaml
+kubectl delete -f mysql-service.yaml
+kubectl delete -f php-deployment.yaml
+kubectl delete -f php-service.yaml
+kubectl delete -f app-reader-role.yaml
+kubectl delete -f app-reader-binding.yaml
+kubectl delete -f resource-quota.yaml
+kubectl delete -f network-policy.yaml
+kubectl delete -f limit-range.yaml
+kubectl delete -f mysql-backup-cronjob.yaml
+
+
+
+
