@@ -14,8 +14,8 @@ pipeline {
             }
             steps {
                 echo "Compiling"
-                sh 'mvn -B -DskipTests clean package'
-                // sh 'mvn package'
+                // sh 'mvn -B -DskipTests clean package'
+                sh 'mvn package'
                 echo "Finished compiling"
             }
         }
